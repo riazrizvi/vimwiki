@@ -664,10 +664,10 @@ function! vimwiki#vars#populate_syntax_vars(syntax) abort
   " Create regexp for bulleted list items
   if !empty(g:vimwiki_syntax_variables[a:syntax].bullet_types)
     let g:vimwiki_syntax_variables[a:syntax].rxListBullet =
-          \ join( map(copy(g:vimwiki_syntax_variables[a:syntax].bullet_types),
+          \ join( map( map(copy(g:vimwiki_syntax_variables[a:syntax].bullet_types),
           \'vimwiki#u#escape(v:val).'
           \ .'repeat("\\+", g:vimwiki_syntax_variables[a:syntax].recurring_bullets)'
-          \ ) , '\|')
+          \ ), 'escape("^s*","s") . (v:val)') , '\|')
   else
     "regex that matches nothing
     let g:vimwiki_syntax_variables[a:syntax].rxListBullet = '$^'
